@@ -1,0 +1,64 @@
+<div class="page-title">
+    <h1><?php echo Mage::helper('test')->__('Users Information') ?></h1>
+</div>
+<form action="<?php echo $this->getFormAction(); ?>" id="usersForm" method="post">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('test')->__('Users Information') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo Mage::helper('test')->__('Name') ?></label>
+                    <div class="input-box">
+                        <input name="name" id="name" title="<?php echo Mage::helper('test')->__('Name') ?>" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="lastname" class="required"><em>*</em><?php echo Mage::helper('test')->__('Lastname') ?></label>
+                    <div class="input-box">
+                        <input name="lastname" id="email" title="<?php echo Mage::helper('test')->__('Lastname') ?>"  class="input-text required-entry " type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="birthday" class="required"><em>*</em><?php echo Mage::helper('test')->__('Birthday') ?></label>
+                    <div class="input-box">
+                        <input name="birthday" id="email" title="<?php echo Mage::helper('test')->__('Birthday') ?>" class="input-text required-entry " type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="email" class="required"><em>*</em><?php echo Mage::helper('test')->__('email') ?></label>
+                    <div class="input-box">
+                        <input name="email" id="email" title="<?php echo Mage::helper('test')->__('email') ?>"  class="input-text required-entry validate-email" type="text" />
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</form>
+<div class="buttons-set">
+    <p class="required"><?php echo Mage::helper('test')->__('* Required Fields') ?></p>
+    <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+    <button onClick="saveData()" title="<?php echo Mage::helper('test')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('test'
+            . '')->__('Submit') ?></span></span></button>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    var contactForm = new VarienForm('usersForm', true);
+     
+    function saveData()
+    {
+        if(!contactForm.validator.validate()){
+            return;
+        }else{
+            jQuery.ajax({
+                type: "POST",
+                dataType: "json",  
+                url: '<?= Mage::getUrl('test/*/save')?>',
+                data: jQuery('#usersForm').serializeArray(),
+                success: function(data){
+                    alert(data.message);
+                }
+            });
+        }
+    }
+//]]>
+</script>
